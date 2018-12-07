@@ -9,27 +9,27 @@ script:
   - docker run aleks/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t aleks/multi-client ./client
-  - docker build -t aleks/milti-nginx ./nginx
-  - docker build -t aleks/multi-server ./server
-  - docker build -t aleks/multi-worker ./worker
+  - docker build -t aleks921/multi-client ./client
+  - docker build -t aleks921/milti-nginx ./nginx
+  - docker build -t aleks921/multi-server ./server
+  - docker build -t aleks921/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push aleks/multi-client
-  - docker push aleks/multi-nginx
-  - docker push aleks/multi-server
-  - docker push aleks/multi-worker
+  - docker push aleks921/multi-client
+  - docker push aleks921/multi-nginx
+  - docker push aleks921/multi-server
+  - docker push aleks921/multi-worker
 
-deploy:
-  provider: elasticbeanstalk
-  region: "eu-west-2"
-  app: "multi-docker"
-  env: "MultiDocker-env"
-  bucket_name: "elasticbeanstalk-eu-west-2-643386052609"
-  bucket_path: "multi-docker"
-  on:
-    branch: master
-  access_key_id: "$AWS_ACCESS_KEY"
-  secret_access_key: 
-    secure: "$AWS_SECRET_KEY"
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "eu-west-2"
+#   app: "multi-docker"
+#   env: "MultiDocker-env"
+#   bucket_name: "elasticbeanstalk-eu-west-2-643386052609"
+#   bucket_path: "multi-docker"
+#   on:
+#     branch: master
+#   access_key_id: "$AWS_ACCESS_KEY"
+#   secret_access_key: 
+#     secure: "$AWS_SECRET_KEY"
